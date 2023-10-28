@@ -1,3 +1,4 @@
+import sys
 from ting_file_management.file_management import txt_importer
 
 
@@ -52,5 +53,20 @@ def remove(queue_instance):
         print(f"Erro ao remover arquivo: {str(e)}")
 
 
-def file_metadata(instance, position):
-    """Aqui irá sua implementação"""
+def file_metadata(queue_instance, position):
+    try:
+        file_info = queue_instance.search(position)
+
+        print(
+            {
+                "nome_do_arquivo": file_info["nome_do_arquivo"],
+                "qtd_linhas": file_info["qtd_linhas"],
+                "linhas_do_arquivo": file_info["linhas_do_arquivo"],
+            }
+        )
+
+    except IndexError:
+        print("Posição inválida", file=sys.stderr)
+
+    except Exception as e:
+        print(f"Erro ao obter metadados do arquivo: {str(e)}", file=sys.stderr)
