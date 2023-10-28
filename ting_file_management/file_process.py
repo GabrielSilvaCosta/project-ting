@@ -34,8 +34,22 @@ def process(path_file, queue_instance):
         print(f"Erro ao processar {path_file}: {str(e)}")
 
 
-def remove(instance):
-    """Aqui irá sua implementação"""
+def remove(queue_instance):
+    try:
+        if len(queue_instance) == 0:
+            print("Não há elementos")
+            return
+
+        removed_file = queue_instance.dequeue()
+        print(
+            f"Arquivo {removed_file['nome_do_arquivo']} removido com sucesso"
+        )
+
+    except IndexError:
+        print("Não há elementos")
+
+    except Exception as e:
+        print(f"Erro ao remover arquivo: {str(e)}")
 
 
 def file_metadata(instance, position):
